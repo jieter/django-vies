@@ -25,12 +25,14 @@ class VATINField(forms.MultiValueField):
         return ''
 
     def clean(self, value):
-        if not value or not isinstance(value, (list, tuple)):
-            if not value or not [v for v in value if v not in self.empty_values]:
-                if self.required:
-                    raise ValidationError(self.error_messages['required'], code='required')
-                else:
-                    return self.compress([])
+        empty_list = isinstance(value, (list, tuple)) and \
+            len([v for v in value if v in self.empty_values]) == len(value)
+
+        if not value or empty_list:
+            if self.required:
+                raise ValidationError(self.error_messages['required'], code='required')
+            else:
+                return self.compress([])
         else:
             try:
                 vatin = VATIN(*value)

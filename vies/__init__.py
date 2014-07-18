@@ -5,7 +5,7 @@ from suds import WebFault
 from suds.client import Client
 
 
-# logging.basicConfig(level=logging.ERROR)
+logging.basicConfig(level=logging.ERROR)
 # logging.getLogger('suds.client').setLevel(logging.DEBUG)
 
 VIES_WSDL_URL = 'http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl'
